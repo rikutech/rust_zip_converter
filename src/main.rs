@@ -1,5 +1,5 @@
 use std::fs;
-use std::io::{BufWritetr, Write};
+use std::io::{BufWriter, Write};
 
 fn main() {
     println!("generating empty zip...");
