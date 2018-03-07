@@ -1,4 +1,14 @@
-use std::io::{self, Read};
+use std::io::{self};
+#[macro_use]
+extern crate serde_derive;
+extern crate serde;
+extern crate bincode;
+extern crate rustc_serialize;
+
+mod end;
+mod zip;
+mod empty_zip;
+use zip::Zip;
 
 fn main() {
     println!("what do you wanna do?");
@@ -7,8 +17,9 @@ fn main() {
 
     let mut buffer = String::new();
     let _ = io::stdin().read_line(&mut buffer).unwrap();
-    match buffer {
-        "em" => EmptyZip.generate(),
+    println!("{}", &*buffer);
+    match &*buffer {
+        "em" => empty_zip::EmptyZip {}.generate(),
         _ => println!("no match"),
     }
 

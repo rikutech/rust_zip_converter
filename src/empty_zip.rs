@@ -1,18 +1,12 @@
-#[macro_use]
-extern crate serde_derive;
-
-extern crate serde;
-extern crate bincode;
-extern crate rustc_serialize;
-
 use std::fs;
-use std::io::{self, Read};
 use bincode::serialize_into;
+use end;
+use zip;
 
-struct EmptyZip {}
+pub struct EmptyZip {}
 
-impl Zip for EmptyZip {
-    const END = EndOfCentralDirectoryRecord {
+impl zip::Zip for EmptyZip {
+    const END: end::EndOfCentralDirectoryRecord = end::EndOfCentralDirectoryRecord {
         signature: 0x06054b50,
         disk: 0,
         central_dir_disk: 0,
@@ -24,6 +18,6 @@ impl Zip for EmptyZip {
 
     fn generate(&self) {
         let mut f = fs::File::create("empty.zip").unwrap();
-        serialize_into(&mut f, &self::END).unwrap();
+        serialize_into(&mut f, &EmptyZip::END).unwrap();
     }
 }
