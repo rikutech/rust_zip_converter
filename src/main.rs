@@ -15,10 +15,9 @@ fn main() {
     println!("em: generate empty zip without comment");
     println!("em-c: generate empty zip with comment");
 
-    let mut buffer = String::new();
+    let mut buffer: String = String::new();
     let _ = io::stdin().read_line(&mut buffer).unwrap();
-    println!("{}", &*buffer);
-    match &*buffer {
+    match buffer.trim().as_ref() as &str {
         "em" => empty_zip::EmptyZip {}.generate(),
         _ => println!("no match"),
     }
